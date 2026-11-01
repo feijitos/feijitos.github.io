@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marcos Feijó — Portfólio</title>
+<meta name="description" content="Marcos Feijó, estudante de Ciência da Computação em Brasília. Aplicações web e projetos de dados.">
+<meta property="og:title" content="Marcos Feijó — Portfólio">
+<meta property="og:description" content="Aplicações web e projetos de dados, do banco à tela.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231D4E9E'/%3E%3Cpath d='M0 0h32A32 32 0 0 1 0 32z' fill='%23FBFCFE'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cobalt: #1D4E9E;
+    --cobalt-deep: #12346E;
+    --sky: #DCE7F7;
+    --paper: #FBFCFE;
+    --ink: #16213A;
+    --muted: #4F5B73;
+    --ipe: #F2B705;
+    --line: #C9D6EC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Jost", "Futura", "Century Gothic", system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--cobalt); text-underline-offset: 3px; }
+  a:hover { color: var(--cobalt-deep); }
+  :focus-visible { outline: 3px solid var(--ipe); outline-offset: 3px; border-radius: 2px; }
+  .wrap { width: min(1080px, 100% - 40px); margin-inline: auto; }
+
+  /* Navegação */
+  .nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; }
+  .brand { font-weight: 600; color: var(--ink); text-decoration: none; font-size: 1.05rem; }
+  .nav ul { display: flex; gap: 22px; list-style: none; }
+  .nav ul a { color: var(--muted); text-decoration: none; font-size: .98rem; }
+  .nav ul a:hover { color: var(--cobalt); }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; padding: 48px 0 88px; }
+  .hero h1 { font-size: clamp(3rem, 7.5vw, 5.6rem); line-height: .98; font-weight: 600; letter-spacing: -.02em; }
+  .hero .lead { margin-top: 22px; font-size: 1.3rem; line-height: 1.45; color: var(--muted); max-width: 30ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .btn {
+    display: inline-block; padding: 12px 20px; border-radius: 999px; font-weight: 500; text-decoration: none;
+    border: 2px solid var(--cobalt); color: var(--cobalt); background: transparent;
+  }
+  .btn.primary { background: var(--cobalt); color: var(--paper); }
+  .btn.primary:hover { background: var(--cobalt-deep); border-color: var(--cobalt-deep); color: var(--paper); }
+  .btn:not(.primary):hover { background: var(--sky); }
+
+  /* Painel de azulejos, inspirado nos azulejos de Athos Bulcão em Brasília */
+  .tiles {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 4px;
+    background: var(--line); max-width: 440px; justify-self: end; width: 100%;
+  }
+  .tile {
+    --r: 0; --fg: var(--cobalt);
+    position: relative; aspect-ratio: 1; background: var(--paper); overflow: hidden; cursor: pointer;
+    transform: rotate(calc(var(--r) * 90deg));
+    transition: transform .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .tile.inv { background: var(--cobalt); --fg: var(--paper); }
+  .tile.ipe { --fg: var(--ipe); }
+  .tile::before { content: ""; position: absolute; background: var(--fg); }
+  .tile.q::before { inset: 0; border-radius: 0 0 100% 0; }
+  .tile.h::before { left: 0; right: 0; top: 0; height: 50%; border-radius: 0 0 50% 50% / 0 0 100% 100%; }
+  .tile.t::before { inset: 0; clip-path: polygon(0 0, 100% 0, 0 100%); }
+  .tile.d::before { inset: 28%; border-radius: 50%; }
+  .tile.s::before { top: 0; bottom: 0; left: 0; width: 50%; }
+  @media (prefers-reduced-motion: no-preference) {
+    .tile { animation: assentar .7s cubic-bezier(.2,.7,.2,1) both; animation-delay: calc(var(--i) * 45ms); }
+    @keyframes assentar { from { opacity: 0; transform: rotate(calc(var(--r) * 90deg - 90deg)) scale(.85); } }
+  }
+
+  /* Seções */
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: clamp(1.9rem, 3.6vw, 2.6rem); font-weight: 600; letter-spacing: -.01em; line-height: 1.1; margin-bottom: 32px; }
+  h3 { font-size: 1.45rem; font-weight: 600; line-height: 1.2; }
+
+  /* Sobre mim */
+  .about { display: grid; grid-template-columns: 1.4fr 1fr; gap: 56px; }
+  .about p { max-width: 62ch; }
+  .about p + p { margin-top: 16px; }
+  .facts { display: grid; grid-template-columns: auto 1fr; gap: 12px 20px; align-self: start; padding: 24px; background: var(--sky); border-radius: 4px; }
+  .facts dt { font-weight: 600; }
+  .facts dd { color: var(--muted); }
+
+  /* Projetos */
+  .project { display: grid; grid-template-columns: 1fr 1.15fr; gap: 48px; align-items: center; }
+  .project + .project { margin-top: 72px; }
+  .project:nth-of-type(even) .preview { order: 2; }
+  .preview { aspect-ratio: 4 / 3; border-radius: 4px; position: relative; overflow: hidden; }
+  .context { color: var(--muted); font-size: .98rem; margin-top: 4px; }
+  .project p.desc { margin-top: 14px; max-width: 58ch; }
+  .project ul { margin: 14px 0 0 20px; max-width: 58ch; }
+  .project li + li { margin-top: 6px; }
+  .project li::marker { color: var(--cobalt); }
+  .stack { margin-top: 16px; font-size: .95rem; color: var(--muted); }
+  .stack strong { color: var(--ink); font-weight: 500; }
+  .project .actions { margin-top: 22px; }
+
+  /* Ilustração: Poupe.AI (código de barras e etiqueta de preço) */
+  .pv-poupe { background: var(--cobalt); }
+  .pv-poupe .barcode {
+    position: absolute; left: 12%; top: 18%; width: 46%; height: 52%;
+    background: repeating-linear-gradient(90deg, var(--paper) 0 3px, transparent 3px 6px, var(--paper) 6px 7px, transparent 7px 11px, var(--paper) 11px 15px, transparent 15px 17px);
+  }
+  .pv-poupe .tag {
+    position: absolute; right: 10%; bottom: 14%; width: 40%; height: 38%;
+    background: var(--ipe); border-radius: 4px 4px 4px 4px;
+    clip-path: polygon(14% 0, 100% 0, 100% 100%, 14% 100%, 0 50%);
+  }
+  .pv-poupe .tag::after {
+    content: ""; position: absolute; left: 9%; top: 50%; width: 9%; aspect-ratio: 1; border-radius: 50%;
+    background: var(--cobalt); transform: translateY(-50%);
+  }
+  .pv-poupe .pin {
+    position: absolute; right: 16%; top: 14%; width: 15%; aspect-ratio: 1;
+    background: var(--paper); border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+  }
+
+  /* Ilustração: ENEM (barras) */
+  .pv-enem { background: var(--sky); display: flex; align-items: flex-end; gap: 4%; padding: 12% 10% 0; }
+  .pv-enem span { flex: 1; background: var(--cobalt); border-radius: 3px 3px 0 0; }
+  .pv-enem span.hi { background: var(--ipe); }
+
+  /* Experiência (linha do tempo) */
+  .timeline { list-style: none; }
+  .timeline li { display: grid; grid-template-columns: 200px 1fr; gap: 24px; padding: 20px 0; }
+  .timeline li + li { border-top: 1px solid var(--line); }
+  .when { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .timeline p { margin-top: 6px; max-width: 62ch; }
+
+  /* Competências */
+  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px 40px; }
+  .skills h3 { font-size: 1.1rem; margin-bottom: 6px; }
+  .skills p { color: var(--muted); }
+
+  /* Formação */
+  .edu { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+  .edu ul { list-style: none; }
+  .edu li + li { margin-top: 14px; }
+  .edu li span { display: block; color: var(--muted); font-size: .98rem; }
+
+  /* Contato */
+  .contact { background: var(--cobalt); color: var(--paper); border-top: 0; }
+  .contact h2 { margin-bottom: 12px; }
+  .contact p { color: var(--sky); max-width: 52ch; }
+  .contact .mail { display: inline-block; margin-top: 24px; font-size: clamp(1.4rem, 4vw, 2.2rem); font-weight: 500; color: var(--paper); word-break: break-word; }
+  .contact .mail:hover { color: var(--ipe); }
+  .contact .links { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 24px; }
+  .contact .links a { color: var(--paper); }
+  .contact .links a:hover { color: var(--ipe); }
+  footer { background: var(--cobalt-deep); color: var(--sky); font-size: .9rem; padding: 18px 0; }
+
+  /* Celular */
+  @media (max-width: 820px) {
+    .nav ul { display: none; }
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 24px 0 64px; }
+    .tiles { justify-self: start; max-width: 300px; }
+    .about, .project, .edu { grid-template-columns: 1fr; gap: 28px; }
+    .project:nth-of-type(even) .preview { order: 0; }
+    .skills { grid-template-columns: 1fr 1fr; }
+    .timeline li { grid-template-columns: 1fr; gap: 4px; }
+    section { padding: 56px 0; }
+  }
+  @media (max-width: 520px) {
+    .skills { grid-template-columns: 1fr; }
+    .facts { grid-template-columns: 1fr; gap: 2px; }
+    .facts dd { margin-bottom: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="wrap nav">
+  <a class="brand" href="#">Marcos Feijó</a>
+  <nav aria-label="Seções">
+    <ul>
+      <li><a href="#sobre">Sobre mim</a></li>
+      <li><a href="#projetos">Projetos</a></li>
+      <li><a href="#experiencia">Experiência</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <h1>Marcos<br>Feijó</h1>
+      <p class="lead">Estudante de Ciência da Computação em Brasília. Faço aplicações web e projetos de dados, do banco à tela.</p>
+      <div class="actions">
+        <a class="btn primary" href="#projetos">Ver projetos</a>
+        <a class="btn" href="Marcos_Feijo_Curriculo.pdf" download>Baixar currículo</a>
+        <a class="btn" href="https://github.com/feijitos">GitHub</a>
+      </div>
+    </div>
+    <div class="tiles" aria-hidden="true" title="Clique nos azulejos para girar">
+      <div class="tile q" style="--i:0;--r:0"></div>
+      <div class="tile inv q" style="--i:1;--r:1"></div>
+      <div class="tile h" style="--i:2;--r:2"></div>
+      <div class="tile t" style="--i:3;--r:1"></div>
+      <div class="tile inv d" style="--i:4;--r:0"></div>
+      <div class="tile q" style="--i:5;--r:2"></div>
+      <div class="tile inv t" style="--i:6;--r:3"></div>
+      <div class="tile s" style="--i:7;--r:0"></div>
+      <div class="tile inv h" style="--i:8;--r:0"></div>
+      <div class="tile ipe d" style="--i:9;--r:0"></div>
+      <div class="tile q" style="--i:10;--r:3"></div>
+      <div class="tile inv q" style="--i:11;--r:2"></div>
+      <div class="tile t" style="--i:12;--r:2"></div>
+      <div class="tile inv s" style="--i:13;--r:1"></div>
+      <div class="tile h" style="--i:14;--r:1"></div>
+      <div class="tile inv q" style="--i:15;--r:0"></div>
+    </div>
+  </div>
+
+  <section id="sobre">
+    <div class="wrap">
+      <h2>Sobre mim</h2>
+      <div class="about">
+        <div>
+          <p>Estou no 7º semestre de Ciência da Computação no Centro Universitário de Brasília (CEUB). Passei dois anos como estagiário de TI no Superior Tribunal Militar, montando e mantendo hardware, organizando a rede e dando suporte aos usuários do tribunal.</p>
+          <p>Hoje meu foco é desenvolver. Faço aplicações web com React e TypeScript ligadas a banco de dados e APIs, e análises de dados em Python que terminam em dashboards que qualquer pessoa consegue abrir e usar.</p>
+          <p>Uso IA no dia a dia do desenvolvimento: planejo tarefas, escrevo e reviso código com o Claude. Procuro estágio em desenvolvimento, dados ou automação.</p>
+        </div>
+        <dl class="facts">
+          <dt>Formação</dt><dd>Ciência da Computação, CEUB, 7º semestre</dd>
+          <dt>Experiência</dt><dd>2 anos de estágio em TI no STM</dd>
+          <dt>Foco</dt><dd>Desenvolvimento web e dados</dd>
+          <dt>Idiomas</dt><dd>Português, inglês fluente e espanhol intermediário</dd>
+          <dt>Cidade</dt><dd>Brasília, DF</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="projetos">
+    <div class="wrap">
+      <h2>Projetos</h2>
+
+      <article class="project">
+        <div class="preview pv-poupe" aria-hidden="true">
+          <div class="barcode"></div><div class="pin"></div><div class="tag"></div>
+        </div>
+        <div>
+          <h3>Poupe.AI</h3>
+          <p class="context">Comparador colaborativo de preços de supermercado. Projeto Integrador III, CEUB, 2026.</p>
+          <p class="desc">Um app web para descobrir onde cada produto está mais barato perto de você, a partir de preços compartilhados pela comunidade.</p>
+          <ul>
+            <li>Leitura do código de barras pela câmera e geolocalização para encontrar mercados próximos.</li>
+            <li>Servidor Node.js para consulta de notas fiscais eletrônicas (NFC-e).</li>
+            <li>Login e banco de dados no Supabase, com histórico de gastos e comparação da cesta do mês.</li>
+            <li>Organizado em sprints no GitHub, com issues, pull requests e documentação de arquitetura.</li>
+          </ul>
+          <p class="stack"><strong>Feito com</strong> React 19, Vite, Tailwind CSS, Node.js e Supabase (PostgreSQL)</p>
+          <div class="actions">
+            <a class="btn primary" href="https://poupe-ai.pages.dev">Abrir o Poupe.AI</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="preview pv-enem" aria-hidden="true">
+          <span style="height:42%"></span><span style="height:58%"></span><span style="height:51%"></span><span class="hi" style="height:86%"></span><span style="height:67%"></span><span style="height:74%"></span>
+        </div>
+        <div>
+          <h3>Socioeconomia vs. Desempenho no ENEM</h3>
+          <p class="context">Projeto de ciência de dados, 2026.</p>
+          <p class="desc">Uma análise de como fatores socioeconômicos se relacionam com as notas do ENEM, cruzando os dados do exame com indicadores do IBGE por estado.</p>
+          <ul>
+            <li>Pipeline de ETL e análise exploratória em Python, com código organizado em módulos.</li>
+            <li>20 indicadores (KPIs) calculados a partir dos dados.</li>
+            <li>Dashboard interativo em Plotly, publicado no GitHub Pages.</li>
+            <li>Próxima etapa: modelos de regressão e classificação.</li>
+          </ul>
+          <p class="stack"><strong>Feito com</strong> Python, pandas, NumPy, Matplotlib, Seaborn, Plotly e Jupyter</p>
+          <div class="actions">
+            <a class="btn primary" href="https://feijitos.github.io/cienciadedados1">Abrir o dashboard</a>
+            <a class="btn" href="https://github.com/feijitos/cienciadedados1">Ver o código</a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="experiencia">
+    <div class="wrap">
+      <h2>Experiência</h2>
+      <ol class="timeline">
+        <li>
+          <span class="when">Out 2024 – Out 2026</span>
+          <div>
+            <h3>Estagiário de TI, Superior Tribunal Militar</h3>
+            <p>Montagem, manutenção e catalogação de hardware, organização da rede, apoio na manutenção dos servidores da intranet e suporte técnico aos usuários.</p>
+          </div>
+        </li>
+        <li>
+          <span class="when">2022 – 2023</span>
+          <div>
+            <h3>Voluntário de suporte técnico, Evento MundoCM</h3>
+            <p>Configuração dos sistemas e da infraestrutura de TI do evento anual e atendimento a participantes com problemas técnicos.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="competencias">
+    <div class="wrap">
+      <h2>Competências</h2>
+      <div class="skills">
+        <div><h3>Linguagens</h3><p>Python, JavaScript e TypeScript (intermediário); SQL, C e C++ (básico)</p></div>
+        <div><h3>Desenvolvimento web</h3><p>React, Vite, Tailwind CSS, HTML, CSS, Node.js e integração de APIs</p></div>
+        <div><h3>Banco de dados</h3><p>Supabase (PostgreSQL), Oracle e modelagem relacional</p></div>
+        <div><h3>Dados</h3><p>pandas, NumPy, Matplotlib, Seaborn, Plotly e Jupyter; ETL, análise exploratória e KPIs</p></div>
+        <div><h3>Ferramentas</h3><p>Git e GitHub, VS Code, Claude e outros LLMs, Excel com VBA</p></div>
+        <div><h3>Infraestrutura</h3><p>Hardware, redes e Cisco Packet Tracer</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="formacao">
+    <div class="wrap">
+      <h2>Formação e cursos</h2>
+      <div class="edu">
+        <ul>
+          <li>Bacharelado em Ciência da Computação<span>Centro Universitário de Brasília (CEUB), desde 2022</span></li>
+          <li>Ensino Médio<span>Colégio Militar de Brasília, concluído em 2021</span></li>
+        </ul>
+        <ul>
+          <li>CS50: Introduction to Computer Science<span>Harvard</span></li>
+          <li>CS50: Introduction to Artificial Intelligence<span>Harvard</span></li>
+          <li>React Native<span>Udemy</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="contact">
+    <div class="wrap">
+      <h2>Contato</h2>
+      <p>Estou procurando estágio em desenvolvimento, dados ou automação. O jeito mais rápido de falar comigo é por e-mail.</p>
+      <a class="mail" href="mailto:feijo8532@gmail.com">feijo8532@gmail.com</a>
+      <div class="links">
+        <a href="https://github.com/feijitos">GitHub</a>
+        <a href="Marcos_Feijo_Curriculo.pdf" download>Currículo em PDF</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Marcos Feijó</div>
+</footer>
+
+<script>
+  // Girar um azulejo ao clicar
+  document.querySelectorAll('.tile').forEach(function (t) {
+    t.addEventListener('click', function () {
+      var r = parseInt(getComputedStyle(t).getPropertyValue('--r'), 10) || 0;
+      t.style.animation = 'none';
+      t.style.setProperty('--r', r + 1);
+    });
+  });
+</script>
+</body>
+</html>
